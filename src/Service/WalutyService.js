@@ -16,3 +16,7 @@ export async function addWaluta(waluta) {
 export async function search(query){
     return await axios.post(host + "/api/waluty/search", {query: query});
 }
+
+export async function deleteWaluta(id) {
+    return await axios.delete(`${host}/api/waluty/${id}`);
+}

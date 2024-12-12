@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {getWaluty, search} from "../Service/WalutyService";
+import {getWaluty, search, deleteWaluta} from "../Service/WalutyService";
 import {useCookies} from "react-cookie";
 import {dodajUlubione, getUlubione, usunUlubione} from "../Service/ProfilService";
 import {useNavigate} from "react-router-dom";
@@ -7,6 +7,7 @@ import {Button, Fab, Icon, TextField} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SearchIcon from '@mui/icons-material/Search';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export const Waluty = () => {
     const [waluty, setWaluty] = useState([]);
@@ -77,12 +78,43 @@ export const Waluty = () => {
         if (filter) filterUpdate();
     }
 
+
+    async function deleteCurrency(id) {
+        const confirmDelete = window.confirm("Czy na pewno chcesz usunąć tę walutę?");
+        if(confirmDelete) {
+            try {
+                await deleteWaluta(id);
+                const updatedWaluty = waluty.filter((waluta) => waluta.id !== id);
+                setWaluty(updatedWaluty);
+                alert("Waluta została usunięta.");
+            } catch (error) {
+                console.error("Błąd podczas usuwania waluty:", error);
+                alert("Nie udało się usunąć waluty.");
+            }
+        }
+    }
+
+
     return(
         <div style={{marginTop: "5vh"}}>
             <div>Ulubione: <input type="checkbox" onChange={filterFav}/> <TextField onChange={(e) => setQuery(e.target.value)} style={{width: "25vw"}} label="Wyszukiwanie"/> <Fab size="medium" onClick={handleSearch}><SearchIcon/></Fab></div><br/><br/>
             {waluty.length !== 0 && <div style={{textAlign: "left", width: "75vw", margin: "0 auto", height: "fit-content"}}>
                 {waluty.map((waluta) => <div key={waluta.id} style={{height: "6vh", border: "1px lightblue solid", marginBottom: "1vh", padding: "10px"}}>
-                    <a style={{textDecoration: "none", color: "black"}} href={"/waluta/"+waluta.id}> {waluta.nazwa} - {waluta.kraj} </a> {waluta.kurs && <span style={{fontWeight: "bold"}}> {waluta.kurs}zł</span>}<span style={{float: "right"}}>{ulubione.includes(waluta.id) && <Fab value={waluta.id} onClick={(e) => {removeFav(waluta.id)}} size="small" style={{boxShadow: "none"}}><FavoriteIcon value={waluta.id}/></Fab>}{!ulubione.includes(waluta.id) && zalogowany && <Fab value={waluta.id} onClick={(e) => {addFav(waluta.id)}} size="small" style={{boxShadow: "none"}}><FavoriteBorderIcon value={waluta.id}/></Fab>}</span>
+                    <a style={{textDecoration: "none", color: "black"}} href={"/waluta/"+waluta.id}> {waluta.nazwa} - {waluta.kraj} </a> {waluta.kurs && <span style={{fontWeight: "bold"}}> {waluta.kurs}zł</span>}<span style={{float: "right"}}>{ulubione.includes(waluta.id) && <Fab value={waluta.id} onClick={(e) => {removeFav(waluta.id)}} size="small" style={{boxShadow: "none"}}><FavoriteIcon value={waluta.id}/></Fab>}{!ulubione.includes(waluta.id) && zalogowany && <Fab value={waluta.id} onClick={(e) => {addFav(waluta.id)}} size="small" style={{boxShadow: "none"}}><FavoriteBorderIcon value={waluta.id}/></Fab>}
+                    <Fab
+                        value={waluta.id}
+                        onClick={() => deleteCurrency(waluta.id)}
+                        size="small"
+                        style={{
+                            boxShadow: "none",
+                            marginLeft: "10px",
+                            backgroundColor: "red",
+                            color: "white",
+                        }}
+                    >
+                        <DeleteIcon value={waluta.id} />
+                    </Fab>
+                    </span>
                 </div>)}
             </div>}
             {waluty.length === 0 && <div>
