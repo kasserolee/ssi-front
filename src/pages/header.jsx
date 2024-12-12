@@ -14,13 +14,18 @@ export const Header = () => {
     }, [cookies]);
 
     return(
-        <div>
-            {!zalogowany && <div>
-                <Button href="/login">Logowanie</Button><Button href="/rejestracja">Rejestracja</Button>
-            </div>}
-            {zalogowany && <div>
-                <Button href="/wyloguj">Wyloguj</Button>
-            </div>}
+        <div style={{width: "75vw", margin: "0 auto", height: "7vh", backgroundColor: "white"}}>
+            <div style={{float: "right"}}>
+                {!zalogowany && <div>
+                    <Button href="/login">Logowanie</Button><Button href="/rejestracja">Rejestracja</Button>
+                </div>}
+                {zalogowany && <div>
+                    <Button href="/wyloguj">Wyloguj</Button>
+                </div>}
+            </div>
+            <div style={{float: "left"}}>
+                <Button href="/">Waluty</Button>
+            </div>
         </div>
     )
 }

@@ -11,7 +11,7 @@ export const Login = () => {
     const handleLogin = async () => {
         let res = await zaloguj({login, haslo});
         setStatus(res.data.status);
-        if (res.data.status === "ok") navigate("/");
+        if (res.data.status === "ok") navigate("/profil");
         setStatus("Niepoprawny login lub hasło");
     }
 
