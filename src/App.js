@@ -8,6 +8,7 @@ import {Rejestracja} from "./pages/rejestracja";
 import {Login} from "./pages/login";
 import {Header} from "./pages/header";
 import {Wyloguj} from "./pages/wyloguj";
+import {Page403} from "./pages/page403";
 
 function App(){
     return(
@@ -18,6 +19,7 @@ function App(){
                     <Route path="/rejestracja" element={<Rejestracja />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/wyloguj" element={<Wyloguj/>}/>
+                    <Route path="/page403" element={<Page403/>}/>
                 </Routes>
             </div>
         </Router>

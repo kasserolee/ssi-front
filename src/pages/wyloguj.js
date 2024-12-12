@@ -6,7 +6,7 @@ export const Wyloguj = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        wyloguj();
+        wyloguj().catch((e) => navigate("/page403"));
         navigate("/");
     }, []);
 }
