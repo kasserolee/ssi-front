@@ -20,3 +20,7 @@ export async function search(query){
 export async function deleteWaluta(id) {
     return await axios.delete(`${host}/api/waluty/${id}`);
 }
+
+export async function updateWaluta(id, waluta) {
+    return await axios.put(`${host}/api/waluty/${id}`, waluta);
+}
