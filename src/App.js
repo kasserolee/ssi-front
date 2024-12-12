@@ -13,6 +13,7 @@ import {Waluty} from "./pages/waluty";
 import {Waluta} from "./pages/waluta";
 import {Page404} from "./pages/page404";
 import {Profil} from "./pages/profil";
+import DodajWalute from "./pages/addWaluta";
 
 function App(){
     return(
@@ -28,6 +29,7 @@ function App(){
                     <Route path="/page404" element={<Page404/>}/>
                     <Route path="/waluta/:id" element={<Waluta/>}/>
                     <Route path="/profil" element={<Profil/>}/>
+                    <Route path="/waluta/dodaj" element={<DodajWalute />} />
                 </Routes>
             </div>
         </Router>

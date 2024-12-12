@@ -9,6 +9,10 @@ export async function getWaluta(id){
     return await axios.get(host + "/api/waluty/"+id);
 }
 
+export async function addWaluta(waluta) {
+    return await axios.post(host + "/api/waluty", waluta);
+}
+
 export async function search(query){
     return await axios.post(host + "/api/waluty/search", {query: query});
 }
