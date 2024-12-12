@@ -1,31 +1,18 @@
 import React, {useEffect, useState} from "react";
-
-const host = "http://localhost:9001"
+import {zaloguj} from "../Service/AutoryzacjaService"
+import {useNavigate} from "react-router-dom";
 
 export const Login = () => {
     const [status, setStatus] = useState("");
     const [login, setLogin] = useState("");
     const [haslo, setHaslo] = useState("");
+    const navigate = useNavigate();
 
-
-    useEffect(() => {
-        fetch("http://localhost:9001/login").then(res => res.json()).then(status => setStatus(status.status))
-    }, []);
-
-    const handleLogin = () => {
-        fetch(host + "/login", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                login: login,
-                haslo: haslo
-            })
-        })
-            .then(res => res.json())
-            .then(data => setStatus(data.status))
-            .catch(err => setStatus("Błąd logowania"));
+    const handleLogin = async () => {
+        let res = await zaloguj({login, haslo});
+        setStatus(res.data.status);
+        if (res.data.status === "ok") navigate("/");
+        setStatus("Niepoprawny login lub hasło");
     }
 
     return(

@@ -6,20 +6,22 @@ import {
 } from "react-router-dom";
 import {Rejestracja} from "./pages/rejestracja";
 import {Login} from "./pages/login";
-
-const host = "http://localhost:9001";
+import {Header} from "./pages/header";
+import {Wyloguj} from "./pages/wyloguj";
 
 function App(){
-  return(
-      <Router>
-          <div className="App">
-            <Routes>
-                <Route path="/rejestracja" element={<Rejestracja />} />
-                <Route path="/login" element={<Login />} />
-            </Routes>
-          </div>
-      </Router>
-  );
+    return(
+        <Router>
+            <div className="App">
+                <Header/>
+                <Routes>
+                    <Route path="/rejestracja" element={<Rejestracja />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/wyloguj" element={<Wyloguj/>}/>
+                </Routes>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
