@@ -12,3 +12,11 @@ export async function dodajUlubione(id){
 export async function usunUlubione(id){
     return await axios.post(host + "/api/ulubione/remove/"+id, "", {withCredentials: true});
 }
+
+export async function getProfil(){
+    return await axios.post(host + "/api/uzytkownicy/uzytkownik", "", {withCredentials: true});
+}
+
+export async function updateProfil(profil){
+    return await axios.patch(host + "/api/uzytkownicy/uzytkownik", profil, {withCredentials: true});
+}

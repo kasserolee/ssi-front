@@ -20,6 +20,7 @@ export const Header = () => {
                     <Button href="/login">Logowanie</Button><Button href="/rejestracja">Rejestracja</Button>
                 </div>}
                 {zalogowany && <div>
+                    <Button href="/profil">Profil</Button>
                     <Button href="/wyloguj">Wyloguj</Button>
                 </div>}
             </div>
