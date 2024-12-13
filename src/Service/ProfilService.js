@@ -20,3 +20,11 @@ export async function getProfil(){
 export async function updateProfil(profil){
     return await axios.patch(host + "/api/uzytkownicy/uzytkownik", profil, {withCredentials: true});
 }
+
+export async function deactivate(){
+    return await axios.patch(host + "/api/uzytkownicy/deaktywuj", "", {withCredentials: true});
+}
+
+export async function zmianaHasla(dane){
+    return await axios.patch(host + "/api/uzytkownicy/passChange", dane, {withCredentials: true});
+}

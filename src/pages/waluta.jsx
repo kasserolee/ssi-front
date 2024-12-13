@@ -4,6 +4,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import { LineChart } from '@mui/x-charts/LineChart';
 import dayjs from "dayjs";
 import {Button, TextField} from "@mui/material";
+import {useCookies} from "react-cookie";
 
 export const Waluta = (props) => {
     const [waluta, setWaluta] = useState({});
@@ -16,6 +17,7 @@ export const Waluta = (props) => {
     const navigate = useNavigate();
     const [daty, setDaty] = useState([]);
     const [wartosci, setWartosci] = useState([0]);
+    const [cookies, setCookies] = useCookies();
 
     useEffect(() => {
         getWaluta(params.id).then((dane) => {
@@ -77,10 +79,9 @@ export const Waluta = (props) => {
                     <div style={{width: "45%", float: "right", textAlign: "left"}}>
                         <b>{waluta.nazwa} - {waluta.kraj}</b><br/><br/>
                         {waluta.symbol_unicode}<br/>
-                        <Button style={{marginTop: "1rem", border: "1px solid skyblue"}} onClick={handleEdytuj}>
+                        {cookies["stan_konta"] !== undefined && cookies['stan_konta'].match(/^s:(.*)\..*$/)[1] === "administrator" &&<Button style={{marginTop: "1rem", border: "1px solid skyblue"}} onClick={handleEdytuj}>
                             Edytuj walutę
-                        </Button>
-
+                        </Button>}
                     </div>
                     <div style={{width: "45%", float: "left"}}>
                         {daty.length !== 0 ? (

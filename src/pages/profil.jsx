@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {getProfil, updateProfil} from "../Service/ProfilService";
+import {deactivate, getProfil, updateProfil, zmianaHasla} from "../Service/ProfilService";
 import {useCookies} from "react-cookie";
 import {Button, TextField} from "@mui/material";
 
@@ -56,13 +56,27 @@ export const Profil = () => {
         }
     }
 
+    const handleDeaktywacja = async () => {
+        const confirmDelete = window.confirm("Czy na pewno chcesz deaktywować swoje konto?");
+        if (confirmDelete){
+            let res = await deactivate();
+            if (res.status !== 200){
+                navigate("/page403");
+            }
+            else{
+                navigate("/wyloguj");
+            }
+        }
+    }
+
     return(
         <div style={{margin: "0 auto", width: "75vw", textAlign: "left"}}>
             {!edit && <div style={{marginTop: "2vh"}}>
                 <p><b>{profil.imie} - {profil.nazwisko}</b></p>
                 <p>Login: {profil.login}</p>
                 <p>{profil.email}</p>
-                <Button style={{border: "1px solid skyblue"}} onClick={handleEdytuj}>Edytuj profil</Button>
+                <Button style={{border: "1px solid skyblue"}} onClick={handleEdytuj}>Edytuj profil</Button><br/><br/>
+                <Button style={{border: "1px solid skyblue"}} href="/zmianaHasla">Zmień hasło</Button>
             </div>}
             {edit && <div>
                 <p>Edycja profilu</p><br/><br/>
@@ -70,7 +84,8 @@ export const Profil = () => {
                 <TextField label="Nazwisko" value={newNazwisko} onChange={(e) => setNewNazwisko(e.target.value)}/><br/><br/>
                 <TextField label="Email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)}/><br/><br/>
                 <TextField label="Login" value={newLogin} onChange={(e) => setNewLogin(e.target.value)}/><br/><br/>
-                <Button style={{border: "1px solid skyblue"}} onClick={handleUpdate}>Zapisz</Button>
+                <Button style={{border: "1px solid skyblue"}} onClick={handleUpdate}>Zapisz</Button><br/><br/>
+                <Button style={{color: "red", border: "1px solid red"}} onClick={handleDeaktywacja}>Deaktywuj konto</Button>
             </div>}<br/>
             {komunikat}
         </div>

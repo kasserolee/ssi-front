@@ -12,3 +12,7 @@ export async function rejestacja(dane){
 export async function wyloguj(){
     return await axios.post(host + "/login/wyloguj", "", {withCredentials: true});
 }
+
+export async function verify(){
+    return await axios.post(host + "/login/autoryzuj", "", {withCredentials: true});
+}

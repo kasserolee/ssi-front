@@ -4,7 +4,7 @@ import {useCookies} from "react-cookie";
 
 export const Header = () => {
     const [cookies, setCookies] = useCookies();
-    const [zalogowany, setZalogowany] = useState(false);
+    const [zalogowany, setZalogowany] = useState(cookies["id"] !== undefined);
 
     useEffect(() => {
         if (cookies["id"] !== undefined){
@@ -20,6 +20,7 @@ export const Header = () => {
                     <Button href="/login">Logowanie</Button><Button href="/rejestracja">Rejestracja</Button>
                 </div>}
                 {zalogowany && <div>
+                    {cookies["stan_konta"] !== undefined && cookies["stan_konta"].match(/^s:(.*)\..*$/)[1] === "administrator" && <Button href="/admin">Panel Administratora</Button>}
                     <Button href="/profil">Profil</Button>
                     <Button href="/wyloguj">Wyloguj</Button>
                 </div>}
